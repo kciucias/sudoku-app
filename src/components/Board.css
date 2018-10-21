@@ -1,0 +1,6 @@
+.board {
+    overflow: hidden;
+    margin: 50px auto;
+    width: 450px;
+    height: 450px;
+}
