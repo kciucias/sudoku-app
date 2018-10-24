@@ -19,8 +19,30 @@ class App extends Component {
       initialBoard: board,
       board
     });
+  }
 
-    console.log(board);
+  solve() {
+    const solveBoard = sudoku.solve(this.state.initialBoard);
+
+    this.setState({ board: solveBoard });
+  }
+
+  restart() {
+    this.setState({ board: this.state.initialBoard });
+  }
+
+  check() {
+    if (this.state.board.indexOf('.') === -1) {
+      const isSolved = sudoku.solve(this.state.board);
+
+      if (isSolved) {
+        alert('Dobrze Ci poszło!');
+      } else {
+        alert('Gdzieś zrobiłeś błąd :(');
+      }
+    } else {
+      alert('Rozwiąż sudoku do końca !!');
+    }
   }
 
   changeHandler(index, value) {
@@ -35,10 +57,10 @@ class App extends Component {
         <h1>Sudoku</h1>
         <Board data={this.state.board.split('')} changeHandler={this.changeHandler.bind(this)} />
         <div className="buttons">
-          <button>Check</button>
+          <button onClick={this.check.bind(this)}>Check</button>
           <button onClick={this.newGame.bind(this)}>New Game</button>
-          <button>Solve</button>
-          <button>Restart</button>
+          <button onClick={this.solve.bind(this)}>Solve</button>
+          <button onClick={this.restart.bind(this)}>Restart</button>
         </div>
       </div>
     );
